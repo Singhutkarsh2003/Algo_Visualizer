@@ -1,6 +1,8 @@
 Algo Visualizer (Android)
 
 An interactive Android application to visualize Data Structures & Algorithms with smooth animations, built using modern Android development tools like Jetpack Compose and MVVM architecture.
+https://github.com/user-attachments/assets/5f9a06c9-bce5-4fd3-9b8e-6f191ca23291
+
 <img width="481" height="933" alt="Image" src="https://github.com/user-attachments/assets/3cea7f4d-61bb-40bb-b600-4fe85f77159c" />  <img width="481" height="933" alt="Image" src="https://github.com/user-attachments/assets/67807e5a-e05a-4030-87cb-4af94eaac3f6" />
 
 ✨ Features
