@@ -34,7 +34,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
 
     val state by viewModel.state.collectAsState()
-    var input by remember { mutableStateOf("") }
     var target by remember { mutableStateOf("") }
 
     var sliderPosition by remember { mutableFloatStateOf(1500f) }
@@ -62,8 +61,8 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
         Spacer(modifier = Modifier.height(16.dp))
 
         BasicTextField(
-            value= input,
-            onValueChange = {input = it},
+            value= target,
+            onValueChange = {target = it},
             modifier = Modifier.fillMaxWidth().background(Color.LightGray).padding(8.dp),
             decorationBox = { innerTextField ->
                 if (target.isEmpty()) {
@@ -109,7 +108,7 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
         ) {
             Button(
                 onClick = {
-                    input.toIntOrNull()?.let {
+                    target.toIntOrNull()?.let {
                         viewModel.insert(it)
                     }
                 }) {
@@ -118,7 +117,7 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
             }
 
             Button(onClick = {
-                input.toIntOrNull()?.let {
+                target.toIntOrNull()?.let {
                     viewModel.delete(it)
                 }
             }) {
@@ -126,7 +125,7 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
             }
 
             Button(onClick = {
-                input.toIntOrNull()?.let {
+                target.toIntOrNull()?.let {
                     viewModel.search(it)
                 }
             }) {
