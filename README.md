@@ -9,6 +9,7 @@ An interactive Android application to visualize Data Structures & Algorithms wit
 🎯 Step-by-step algorithm execution
 🧠 Designed for DSA learning and interview preparation
 🧩 Clean and modular architecture
+<img width="481" height="933" alt="Image" src="https://github.com/user-attachments/assets/759bdf91-4822-4251-a1a9-bc415881ed44" /><img width="481" height="933" alt="Image" src="https://github.com/user-attachments/assets/63e43696-8966-4690-810c-685ccb88dd4f" />
 
 🛠️ Tech Stack
 Language: Kotlin
