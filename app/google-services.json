@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430132868391",
+    "project_id": "algovisualizer-5a888",
+    "storage_bucket": "algovisualizer-5a888.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430132868391:android:eca65fcc9abdb3fb14e502",
+        "android_client_info": {
+          "package_name": "com.example.algovisualizer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk4_pwtPPwA1QK1DAmnFl_vRDgrE3Ucq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
