@@ -1,49 +1,81 @@
 package com.example.algovisualizer.domain.usecase.dsa.tree
 
+import com.example.algovisualizer.domain.model.TreeNode
 import com.example.algovisualizer.domain.model.TreeState
 import kotlinx.coroutines.delay
 
 class TreeUseCase {
 
-    suspend fun inorder(
-        list: List<Int>,
+    //  DFS Traversal
+    suspend fun dfs(
+        root: TreeNode?,
         delayTime: () -> Long,
         isPaused: () -> Boolean,
         onStep: (TreeState) -> Unit
     ) {
         val visited = mutableListOf<Int>()
+        dfsHelper(root, visited, delayTime, isPaused, onStep)
+    }
 
-        suspend fun traverse(index: Int) {
-            if (index >= list.size) return
+    private suspend fun dfsHelper(
+        node: TreeNode?,
+        visited: MutableList<Int>,
+        delayTime: () -> Long,
+        isPaused: () -> Boolean,
+        onStep: (TreeState) -> Unit
+    ) {
+        if (node == null) return
+
+        while (isPaused()) delay(100)
+
+        visited.add(node.value)
+
+        onStep(
+            TreeState(
+                root = node,
+                visited = visited.toList(),
+                message = "Visited ${node.value}"
+            )
+        )
+
+        delay(delayTime())
+
+        dfsHelper(node.left, visited, delayTime, isPaused, onStep)
+        dfsHelper(node.right, visited, delayTime, isPaused, onStep)
+    }
+
+    //  BFS Traversal
+    suspend fun bfs(
+        root: TreeNode?,
+        delayTime: () -> Long,
+        isPaused: () -> Boolean,
+        onStep: (TreeState) -> Unit
+    ) {
+        val queue = ArrayDeque<TreeNode?>()
+        val visited = mutableListOf<Int>()
+
+        queue.add(root)
+
+        while (queue.isNotEmpty()) {
 
             while (isPaused()) delay(100)
 
-            traverse(2 * index + 1)
+            val node = queue.removeFirst() ?: continue
 
-            visited.add(list[index])
+            visited.add(node.value)
 
             onStep(
                 TreeState(
-                    nodes = list,
+                    root = root,
                     visited = visited.toList(),
-                    current = list[index],
-                    message = "Visiting ${list[index]}"
+                    message = "Visited ${node.value}"
                 )
             )
 
             delay(delayTime())
 
-            traverse(2 * index + 2)
+            queue.add(node.left)
+            queue.add(node.right)
         }
-
-        traverse(0)
-
-        onStep(
-            TreeState(
-                nodes = list,
-                visited = visited,
-                message = "Traversal Complete"
-            )
-        )
     }
 }

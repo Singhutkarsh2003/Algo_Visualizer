@@ -1,47 +1,62 @@
 package com.example.algovisualizer.domain.usecase.dsa.graph
 
-import com.example.algovisualizer.domain.model.GraphState
+import com.example.algovisualizer.domain.model.Edge
 import kotlinx.coroutines.delay
-import java.util.LinkedList
-import java.util.Queue
 
-class GraphUseCase {
+class Dijkstra {
 
-    suspend fun bfs(
-        graph: Map<Int, List<Int>>,
+    suspend fun run(
+        graph: Map<Int, List<Edge>>,
         start: Int,
         delayTime: () -> Long,
         isPaused: () -> Boolean,
-        onStep: (GraphState) -> Unit
+        onStep: (Set<Int>, List<Int>) -> Unit
     ) {
-        val queue: Queue<Int> = LinkedList()
-        val visited = mutableListOf<Int>()
 
-        queue.add(start)
+        val dist = mutableMapOf<Int, Int>()
+        val visited = mutableSetOf<Int>()
+        val parent = mutableMapOf<Int, Int>()
 
-        while (queue.isNotEmpty()) {
+        graph.keys.forEach { dist[it] = Int.MAX_VALUE }
+        dist[start] = 0
 
-            while (isPaused()) delay(50)
+        repeat(graph.size) {
 
-            val node = queue.poll()
+            while (isPaused()) delay(100)
 
-            if (node !in visited) {
-                visited.add(node)
+            val u = dist
+                .filter { !visited.contains(it.key) }
+                .minByOrNull { it.value }?.key ?: return
 
-                onStep(
-                    GraphState(
-                        visited = visited.toList(),
-                        current = node,
-                        message = "Visiting $node"
-                    )
-                )
+            visited.add(u)
 
-                delay(delayTime())
+            graph[u]?.forEach { edge ->
+                val newDist = dist[u]!! + edge.weight
 
-                graph[node]?.forEach { queue.add(it) }
+                if (newDist < dist[edge.to]!!) {
+                    dist[edge.to] = newDist
+                    parent[edge.to] = u
+                }
             }
+
+            val path = buildPath(parent, start, u)
+
+            onStep(visited.toSet(), path)
+
+            delay(delayTime())
+        }
+    }
+
+    private fun buildPath(parent: Map<Int, Int>, start: Int, end: Int): List<Int> {
+        val path = mutableListOf<Int>()
+        var curr = end
+
+        while (parent.containsKey(curr)) {
+            path.add(curr)
+            curr = parent[curr]!!
         }
 
-        onStep(GraphState(visited, message = "Traversal Complete"))
+        path.add(start)
+        return path.reversed()
     }
 }

@@ -42,7 +42,7 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         //  TITLE
         Text(
             text = "LinkedList Visualizer",
@@ -61,8 +61,8 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
         Spacer(modifier = Modifier.height(16.dp))
 
         BasicTextField(
-            value= target,
-            onValueChange = {target = it},
+            value = target,
+            onValueChange = { target = it },
             modifier = Modifier.fillMaxWidth().background(Color.LightGray).padding(8.dp),
             decorationBox = { innerTextField ->
                 if (target.isEmpty()) {
@@ -84,14 +84,14 @@ fun LinkedListScreen(viewModel: LinkedListViewModel = viewModel() ){
                     targetValue = (value * 2).dp,
                     label = ""
                 )
-                val color = when{
+                val color = when {
                     state.activeIndex == index -> Color.Red
                     else -> Color.Green
                 }
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Box(
                         modifier = Modifier.width(20.dp).height(height).background(color)
                     )
